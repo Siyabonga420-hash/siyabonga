@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agri-Market Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" href="Designer-removebg-preview.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-image: url("Sunrise\ over\ peaceful\ farmland.png");
+            min-height: 100vh;
+            color: white;
+        }
+
+        /* ============ NAVIGATION BAR ============ */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 7px;
+            padding: 20px 50px;
+            background-color: transparent;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 24px;
+            font-weight: 800;
+        }
+
+        .logo i {
+            font-size: 32px;
+            color: #4ade80;
+        }
+
+        .logo span {
+            background: linear-gradient(135deg, #ffffff, #bef264);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #eab308;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #eab308;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn-login {
+            background: orange;
+            border: 1px solid #d8aa12;
+            padding: 8px 20px;
+            border-radius: 25px;
+            color: white;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-login:hover {
+            background: #eff70d;
+            color: #1a472a;
+        }
+
+        .btn-signup {
+            background:  #eab308;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 25px;
+            color: white;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-signup:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.05);
+        }
+
+        /* ============ HERO SECTION ============ */
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 60px 50px;
+            max-width: 1400px;
+            margin: 0 auto;
+            gap: 50px;
+            flex-wrap: wrap;
+        }
+
+        .hero-content {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .hero-badge {
+            background: rgba(74, 222, 128, 0.2);
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 14px;
+            color: #4ade80;
+            margin-bottom: 20px;
+            border: 1px solid rgba(74, 222, 128, 0.3);
+        }
+
+        .hero-content h1 {
+            font-size: 56px;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .hero-content h1 span {
+            background: linear-gradient(135deg, #4ade80, #eab308);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .hero-description {
+            font-size: 18px;
+            color: white;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            max-width: 500px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background:  #eab308;
+            border: none;
+            padding: 14px 36px;
+            border-radius: 50px;
+            color: white;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(34, 197, 94, 0.3);
+        }
+
+        .btn-secondary {
+            background: #eab308;
+            border: #eab308;
+            padding: 12px 34px;
+            border-radius: 50px;
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(74, 222, 128, 0.1);
+            border-color: #eab308;
+        }
+
+        /* ============ WEATHER CARD ============ */
+        .hero-stats {
+            flex: 1;
+            min-width: 280px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .weather-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            border-radius: 32px;
+            padding: 30px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: 0.3s;
+            width: 100%;
+            max-width: 280px;
+        }
+
+        .weather-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .weather-icon {
+            font-size: 64px;
+            margin-bottom: 15px;
+        }
+
+        .temperature {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 5px;
+        }
+
+        .weather-desc {
+            font-size: 18px;
+            color: #c8e0b0;
+            margin-bottom: 20px;
+        }
+
+        .weather-details {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            font-size: 12px;
+            color: #c8e0b0;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .weather-details div {
+            text-align: center;
+        }
+
+        .weather-details i {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 16px;
+        }
+
+        /* ============ STATS SECTION ============ */
+        .stats-section {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            padding: 40px 20px;
+            flex-wrap: wrap;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 20px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: 800;
+            color: #eab308;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #c8e0b0;
+        }
+
+        /* ============ FEATURED PRODUCTS ============ */
+        .featured-section {
+            padding: 60px 50px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-header h2 {
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .section-header p {
+            color: #c8e0b0;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .product-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 25px;
+            text-align: center;
+            transition: 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(74, 222, 128, 0.3);
+        }
+
+        .product-icon {
+            font-size: 56px;
+            margin-bottom: 15px;
+        }
+
+        .product-card h3 {
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+
+        .product-price {
+            font-size: 24px;
+            font-weight: 700;
+            color: white;
+            margin: 10px 0;
+        }
+
+        .product-rating {
+            color: #eab308;
+            margin-bottom: 15px;
+        }
+
+        .add-to-cart {
+            background: #eab308;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: 0.3s;
+        }
+
+        .add-to-cart:hover {
+            color: #4ade80;
+            transform: scale(1.02);
+        }
+
+        /* ============ FOOTER ============ */
+        .footer {
+            background:  black;
+            padding: 40px 50px 20px;
+            border-radius: 7px;
+            margin-top: 60px;
+            border-top: 1px solid rgba(74, 222, 128, 0.2);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #c8e0b0;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: #eab308;
+        }
+
+        .copyright {
+            text-align: center;
+            color: #7aa86a;
+            font-size: 12px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* ============ RESPONSIVE ============ */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 15px 20px;
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .nav-links {
+                gap: 20px;
+            }
+            
+            .hero {
+                padding: 40px 20px;
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .hero-content h1 {
+                font-size: 36px;
+            }
+            
+            .hero-description {
+                margin-left: auto;
+                margin-right: auto;
+            }
+            
+            .hero-buttons {
+                justify-content: center;
+            }
+            
+            .featured-section {
+                padding: 40px 20px;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .footer-links {
+                justify-content: center;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-content, .weather-card, .product-card {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .product-card:nth-child(2) { animation-delay: 0.1s; }
+        .product-card:nth-child(3) { animation-delay: 0.2s; }
+        .product-card:nth-child(4) { animation-delay: 0.3s; }
+        .siya{
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="logo">
+
+            <span><img src="agri-Market_Hub__2_-removebg-preview.png" alt=""></span>
+        </div>
+        <div class="nav-links">
+            <a href="Home.html">Home</a>
+            <a href="#">About Us</a>
+            <a href="contacts.html">Contacts</a>
+            <a href="#">Products</a>
+            <a href="#">Farmers</a>
+        </div>
+        <div class="nav-buttons">
+            <button class="btn-login" onclick="goToAuth()"  >Sign In</button>
+            
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            
+            <h1>Fresh from <span>farm to table</span><br>Buy directly from local farmers</h1>
+            <p class="hero-description">
+                Connect directly with local farmers. Get the freshest produce at the best prices. No middlemen, just pure goodness from farm to your table.
+            </p>
+            <div class="hero-buttons">
+                <button class="btn-primary" onclick="alert('Exploring Marketplace...')">
+                    <i class="fas fa-shopping-cart"></i> Shop Now
+                </button>
+                <button class="btn-secondary" onclick="alert(' Learn about our farmers...')">
+                    <i class="fas fa-tractor"></i> Meet Farmers
+                </button>
+            </div>
+        </div>
+
+        <div class="hero-stats">
+            
+                    <div>
+                       
+            </div>
+        </div>
+    </section>
+
+    
+
+    <!-- Featured Products -->
+    <section class="featured-section">
+        <div class="section-header">
+            <h2> Today's Fresh Picks</h2>
+            <p>Directly from our farmers to your kitchen</p>
+        </div>
+        <div class="products-grid">
+            <div class="product-card">
+                <div class="product-icon"><img class="siya" src="OIP (1) - Copy.webp" alt="">
+                </div>
+                <h3>Fresh Tomatoes</h3>
+                <div class="product-price">R40/kg</div>
+                
+                <button class="add-to-cart" onclick="alert(' Added Fresh Tomatoes to cart!')">
+                    <i class="fas fa-shopping-cart"></i> Add to Cart
+                </button>
+            </div>
+            <div class="product-card">
+                <div class="product-icon"></div>
+                <h3>Organic Spinach</h3>
+                <div class="product-price">R30/bunch</div>
+                
+                <button class="add-to-cart" onclick="alert(' Added Organic Spinach to cart!')">
+                    <i class="fas fa-shopping-cart"></i> Add to Cart
+                </button>
+            </div>
+            <div class="product-card">
+                <div class="product-icon"></div>
+                <h3>Alphonso Mangoes</h3>
+                <div class="product-price">R120/kg</div>
+                
+                <button class="add-to-cart" onclick="alert(' Added Alphonso Mangoes to cart!')">
+                    <i class="fas fa-shopping-cart"></i> Add to Cart
+                </button>
+            </div>
+            <div class="product-card">
+                <div class="product-icon"></div>
+                <h3>Basmati Rice</h3>
+                <div class="product-price">R80/kg</div>
+               
+                <button class="add-to-cart" onclick="alert(' Added Basmati Rice to cart!')">
+                    <i class="fas fa-shopping-cart"></i> Add to Cart
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <span>Agri-Market Hub</span>
+            </div>
+            <div class="footer-links">
+                <a href="#"> About Us</a>
+                <a href="#"> Contact</a>
+                <a href="#"> Privacy Policy</a>
+                <a href="#"> Terms & Conditions</a>
+            </div>
+        </div>
+        <div class="copyright">
+            © 2024 Agri-Market Hub. All rights reserved. Fresh from farm to table.
+        </div>
+    </footer>
+    <script>
+  function goToAuth() {
+      window.location.href = "signUp.html";
+  }
+</script>
+
+</body>
+</html>
